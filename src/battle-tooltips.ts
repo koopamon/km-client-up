@@ -1634,7 +1634,6 @@ class BattleTooltips {
 			accuracyModifiers.push(5325);
 			value.abilityModify(1.3, "Snow Force");
 		}
-		}
 
 		if (value.tryItem('Wide Lens')) {
 			accuracyModifiers.push(4505);
