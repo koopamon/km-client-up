@@ -1331,13 +1331,13 @@ export class BattleScene implements BattleSceneStub {
 			}
 			break;
 		case 'secretseeds':
-			let tspikeArray = this.sideConditions[siden]['secretseeds'];
-			if (!tspikeArray) {
-				tspikeArray = [];
-				this.sideConditions[siden]['secretseeds'] = tspikeArray;
+			let sseedarray = this.sideConditions[siden]['secretseeds'];
+			if (!sseedarray) {
+				sseedarray = [];
+				this.sideConditions[siden]['secretseeds'] = sseedarray;
 			}
-			let tspikeLevels = this.battle.sides[siden].sideConditions['secretseeds'][1];
-			if (tspikeArray.length < 1 && tspikeLevels >= 1) {
+			let sseedLevels = this.battle.sides[siden].sideConditions['secretseeds'][1];
+			if (sseedarray.length < 1 && sseedLevels >= 1) {
 				const sseed1 = new Sprite(BattleEffects.leaf1, {
 					display: 'block',
 					x: x + 5,
@@ -1346,9 +1346,9 @@ export class BattleScene implements BattleSceneStub {
 					scale: 0.3,
 				}, this);
 				this.$spritesFront[spriteIndex].append(sseed1.$el!);
-				tspikeArray.push(sseed1);
+				sseedarray.push(sseed1);
 			}
-			if (tspikeArray.length < 2 && tspikeLevels >= 2) {
+			if (sseedarray.length < 2 && sseedLevels >= 2) {
 				const sseed2 = new Sprite(BattleEffects.leaf2, {
 					display: 'block',
 					x: x - 15,
@@ -1357,7 +1357,7 @@ export class BattleScene implements BattleSceneStub {
 					scale: .3,
 				}, this);
 				this.$spritesFront[spriteIndex].append(sseed2.$el!);
-				tspikeArray.push(sseed2);
+				sseedarray.push(sseed2);
 			}
 			break;
 		case 'stickyweb':
