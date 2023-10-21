@@ -758,13 +758,13 @@ class BattleTooltips {
 				text += `<p class="movetag">&#x2713; Wind <small>(activates Wind Power and Wind Rider)</small></p>`;
 			}
 			if (move.flags.hammer && ability === 'powerhammer') {
-				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Power Hammer)</small></p>`;
+				text += `<p class="movetag">&#x2713; Hammer <small>(boosted by Power Hammer)</small></p>`;
 			}
 			if (move.flags.slicing && ability === 'starsword') {
-				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Star Sword)</small></p>`;
+				text += `<p class="movetag">&#x2713; Slicing <small>(boosted by Star Sword)</small></p>`;
 			}
 			if (move.flags.bullet && ability === 'starbat') {
-				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Star Bat)</small></p>`;
+				text += `<p class="movetag">&#x2713; Bullet-like <small>(boosted by Star Bat)</small></p>`;
 			}
 		}
 		return text;
@@ -1630,11 +1630,13 @@ class BattleTooltips {
 		} else if (value.tryAbility('Compound Eyes')) {
 			accuracyModifiers.push(5325);
 			value.abilityModify(1.3, "Compound Eyes");
-		} else if (value.tryAbility('Snow Force') && this.battle.weather === 'snow') {
+		}
+
+		if (value.tryAbility('Snow Force') && weather === 'snow') {
 			accuracyModifiers.push(5325);
 			value.abilityModify(1.3, "Snow Force");
 		}
-
+		
 		if (value.tryItem('Wide Lens')) {
 			accuracyModifiers.push(4505);
 			value.itemModify(1.1, "Wide Lens");
@@ -1910,7 +1912,7 @@ class BattleTooltips {
 			if (value.tryAbility("Sand Force")) value.weatherModify(1.3, "Sandstorm", "Sand Force");
 		}
 		if (['Ice'].includes(moveType) && this.battle.weather === 'snow') {
-			if (value.tryAbility("Snow Force")) value.weatherModify(1.5, "Snow", "Snow Force");
+			if (value.tryAbility("Snow Force")) value.weatherModify(1.5, "Snowscape", "Snow Force");
 		}
 		if (move.secondaries) {
 			value.abilityModify(1.3, "Sheer Force");
@@ -1923,6 +1925,15 @@ class BattleTooltips {
 		}
 		if (move.flags['slicing']) {
 			value.abilityModify(1.5, "Sharpness");
+		}
+		if (move.flags['slicing']) {
+			value.abilityModify(1.5, "Star Sword");
+		}
+		if (move.flags['bullet']) {
+			value.abilityModify(1.3, "Star Bat");
+		}
+		if (move.flags['hammer']) {
+			value.abilityModify(1.5, "Power Hammer");
 		}
 		for (let i = 1; i <= 5 && i <= pokemon.side.faintCounter; i++) {
 			if (pokemon.volatiles[`fallen${i}`]) {
