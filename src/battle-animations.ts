@@ -1340,7 +1340,7 @@ export class BattleScene implements BattleSceneStub {
 			if (sseedarray.length < 1 && sseedLevels >= 1) {
 				const sseed1 = new Sprite(BattleEffects.leaf1, {
 					display: 'block',
-					x: x + 25,
+					x: x + 50,
 					y: y - 40,
 					z: side.z,
 					scale: 0.9,
@@ -1351,8 +1351,8 @@ export class BattleScene implements BattleSceneStub {
 			if (sseedarray.length < 2 && sseedLevels >= 2) {
 				const sseed2 = new Sprite(BattleEffects.leaf1, {
 					display: 'block',
-					x: x - 15,
-					y: y - 35,
+					x: x - 25,
+					y: y - 45,
 					z: side.z,
 					scale: 0.9,
 				}, this);

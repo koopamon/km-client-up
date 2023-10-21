@@ -19774,7 +19774,7 @@ export const BattleMoveAnims: AnimTable = {
 				x: attacker.x,
 				y: attacker.y,
 				z: attacker.z,
-				scale: 0.1,
+				scale: 0.5,
 				opacity: 0.5,
 			}, {
 				x: +5,
@@ -19787,7 +19787,7 @@ export const BattleMoveAnims: AnimTable = {
 				x: attacker.x,
 				y: attacker.y,
 				z: attacker.z,
-				scale: 0.1,
+				scale: 0.5,
 				opacity: 0.5,
 				time: 200,
 			}, {
