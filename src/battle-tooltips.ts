@@ -749,10 +749,10 @@ class BattleTooltips {
 				text += `<p class="movetag">&#x2713; Recoil <small>(boosted by Reckless)</small></p>`;
 			}
 			if (move.flags.bullet) {
-				text += `<p class="movetag">&#x2713; Bullet-like <small>(doesn't affect Bulletproof pokemon)</small></p>`;
+				text += `<p class="movetag">&#x2713; Bullet-like <small>(doesn't affect Bulletproof pokemon & is boosted by Star Bat)</small></p>`;
 			}
 			if (move.flags.slicing) {
-				text += `<p class="movetag">&#x2713; Slicing <small>(boosted by Sharpness)</small></p>`;
+				text += `<p class="movetag">&#x2713; Slicing <small>(boosted by Sharpness & Star Sword)</small></p>`;
 			}
 			if (move.flags.wind) {
 				text += `<p class="movetag">&#x2713; Wind <small>(activates Wind Power and Wind Rider)</small></p>`;
@@ -762,9 +762,6 @@ class BattleTooltips {
 			}
 			if (move.flags.slicing && ability === 'starsword') {
 				text += `<p class="movetag">&#x2713; Slicing <small>(boosted by Star Sword)</small></p>`;
-			}
-			if (move.flags.bullet && ability === 'starbat') {
-				text += `<p class="movetag">&#x2713; Bullet-like <small>(boosted by Star Bat)</small></p>`;
 			}
 		}
 		return text;
