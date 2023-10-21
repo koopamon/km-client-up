@@ -1330,6 +1330,36 @@ export class BattleScene implements BattleSceneStub {
 				tspikeArray.push(tspike2);
 			}
 			break;
+		case 'secretseeds':
+			let tspikeArray = this.sideConditions[siden]['secretseeds'];
+			if (!tspikeArray) {
+				tspikeArray = [];
+				this.sideConditions[siden]['secretseeds'] = tspikeArray;
+			}
+			let tspikeLevels = this.battle.sides[siden].sideConditions['secretseeds'][1];
+			if (tspikeArray.length < 1 && tspikeLevels >= 1) {
+				const sseed1 = new Sprite(BattleEffects.leaf1, {
+					display: 'block',
+					x: x + 5,
+					y: y - 40,
+					z: side.z,
+					scale: 0.3,
+				}, this);
+				this.$spritesFront[spriteIndex].append(sseed1.$el!);
+				tspikeArray.push(sseed1);
+			}
+			if (tspikeArray.length < 2 && tspikeLevels >= 2) {
+				const sseed2 = new Sprite(BattleEffects.leaf2, {
+					display: 'block',
+					x: x - 15,
+					y: y - 35,
+					z: side.z,
+					scale: .3,
+				}, this);
+				this.$spritesFront[spriteIndex].append(sseed2.$el!);
+				tspikeArray.push(sseed2);
+			}
+			break;
 		case 'stickyweb':
 			const web = new Sprite(BattleEffects.web, {
 				display: 'block',
@@ -2781,6 +2811,8 @@ export class PokemonSprite extends Sprite {
 			status += '<span class="par">PAR</span> ';
 		} else if (pokemon.status === 'frz') {
 			status += '<span class="frz">FRZ</span> ';
+		} else if (pokemon.status === 'fbt') {
+			status += '<span class="fbt">FBT</span> ';
 		}
 		if (pokemon.terastallized) {
 			status += `<img src="${Dex.resourcePrefix}sprites/types/${encodeURIComponent(pokemon.terastallized)}.png" alt="${pokemon.terastallized}" class="pixelated" /> `;
@@ -2858,6 +2890,7 @@ export class PokemonSprite extends Sprite {
 // psn: -webkit-filter:  sepia(100%) hue-rotate(618deg) saturate(285%);
 // brn: -webkit-filter:  sepia(100%) hue-rotate(311deg) saturate(469%);
 // slp: -webkit-filter:  grayscale(100%);
+// frz: -webkit-filter:  sepia(100%) hue-rotate(154deg) saturate(759%) brightness(23%);
 // frz: -webkit-filter:  sepia(100%) hue-rotate(154deg) saturate(759%) brightness(23%);
 
 // @ts-ignore
@@ -5922,6 +5955,57 @@ export const BattleStatusAnims: AnimTable = {
 		},
 	},
 	frz: {
+		anim(scene, [attacker]) {
+			scene.showEffect('icicle', {
+				x: attacker.x - 30,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 0.5,
+				opacity: 0.5,
+				time: 200,
+			}, {
+				scale: 0.9,
+				opacity: 0,
+				time: 600,
+			}, 'linear', 'fade');
+			scene.showEffect('icicle', {
+				x: attacker.x,
+				y: attacker.y - 30,
+				z: attacker.z,
+				scale: 0.5,
+				opacity: 0.5,
+				time: 300,
+			}, {
+				scale: 0.9,
+				opacity: 0,
+				time: 650,
+			}, 'linear', 'fade');
+			scene.showEffect('icicle', {
+				x: attacker.x + 15,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 0.5,
+				opacity: 0.5,
+				time: 400,
+			}, {
+				scale: 0.9,
+				opacity: 0,
+				time: 700,
+			}, 'linear', 'fade');
+			scene.showEffect('wisp', {
+				x: attacker.x,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 1,
+				opacity: 0.5,
+			}, {
+				scale: 3,
+				opacity: 0,
+				time: 600,
+			}, 'linear', 'fade');
+		},
+	},
+	fbt: {
 		anim(scene, [attacker]) {
 			scene.showEffect('icicle', {
 				x: attacker.x - 30,

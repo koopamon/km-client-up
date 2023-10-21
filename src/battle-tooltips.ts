@@ -757,6 +757,15 @@ class BattleTooltips {
 			if (move.flags.wind) {
 				text += `<p class="movetag">&#x2713; Wind <small>(activates Wind Power and Wind Rider)</small></p>`;
 			}
+			if (move.flags.hammer && ability === 'powerhammer') {
+				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Power Hammer)</small></p>`;
+			}
+			if (move.flags.slicing && ability === 'starsword') {
+				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Star Sword)</small></p>`;
+			}
+			if (move.flags.bullet && ability === 'starbat') {
+				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Star Bat)</small></p>`;
+			}
 		}
 		return text;
 	}
@@ -1018,7 +1027,11 @@ class BattleTooltips {
 			} else if (this.battle.gen < 2 && pokemon.status === 'brn') {
 				stats.atk = Math.floor(stats.atk * 0.5);
 			}
-
+			if (this.battle.gen > 2 && ability === 'frostboost') {
+				stats.spa = Math.floor(stats.spa * 1.5);
+			} else if (this.battle.gen < 2 && pokemon.status === 'fbt') {
+				stats.spa = Math.floor(stats.spa * 0.5);
+			}
 			if (this.battle.gen > 2 && ability === 'quickfeet') {
 				stats.spe = Math.floor(stats.spe * 1.5);
 			} else if (pokemon.status === 'par') {
@@ -1120,6 +1133,9 @@ class BattleTooltips {
 					if (ability === 'chlorophyll') {
 						speedModifiers.push(2);
 					}
+					if (ability === 'sunsprint') {
+						speedModifiers.push(2);
+					}
 					if (ability === 'solarpower') {
 						stats.spa = Math.floor(stats.spa * 1.5);
 					}
@@ -1141,6 +1157,9 @@ class BattleTooltips {
 				if (weather === 'raindance' || weather === 'primordialsea') {
 					if (ability === 'swiftswim') {
 						speedModifiers.push(2);
+					}
+					if (ability === 'aquaamplify') {
+						stats.spd *= 2;
 					}
 				}
 			}
@@ -1230,6 +1249,9 @@ class BattleTooltips {
 		}
 		if (ability === 'furcoat') {
 			stats.def *= 2;
+		}
+		if (ability === 'blubberbody') {
+			stats.spd *= 2;
 		}
 		if (this.battle.abilityActive('Vessel of Ruin')) {
 			if (ability !== 'vesselofruin') {
@@ -1608,6 +1630,10 @@ class BattleTooltips {
 		} else if (value.tryAbility('Compound Eyes')) {
 			accuracyModifiers.push(5325);
 			value.abilityModify(1.3, "Compound Eyes");
+		} else if (value.tryAbility('Snow Force') && this.battle.weather === 'snow') {
+			accuracyModifiers.push(5325);
+			value.abilityModify(1.3, "Snow Force");
+		}
 		}
 
 		if (value.tryItem('Wide Lens')) {
@@ -1875,11 +1901,17 @@ class BattleTooltips {
 		if (['psn', 'tox'].includes(pokemon.status) && move.category === 'Physical') {
 			value.abilityModify(1.5, "Toxic Boost");
 		}
-		if (this.battle.gen > 2 && serverPokemon.status === 'brn' && move.id !== 'facade' && move.category === 'Physical') {
+		if (this.battle.gen > 2 && serverPokemon.status === 'brn' && move.id !== 'facade' && move.id !== 'swindle' && move.category === 'Physical') {
 			if (!value.tryAbility("Guts")) value.modify(0.5, 'Burn');
+		}
+		if (this.battle.gen > 2 && serverPokemon.status === 'fbt' && move.id !== 'facade' && move.id !== 'swindle' &&  move.category === 'Special') {
+			if (!value.tryAbility("Frost Boost")) value.modify(0.5, 'Frostbite');
 		}
 		if (['Rock', 'Ground', 'Steel'].includes(moveType) && this.battle.weather === 'sandstorm') {
 			if (value.tryAbility("Sand Force")) value.weatherModify(1.3, "Sandstorm", "Sand Force");
+		}
+		if (['Ice'].includes(moveType) && this.battle.weather === 'snow') {
+			if (value.tryAbility("Snow Force")) value.weatherModify(1.5, "Snow", "Snow Force");
 		}
 		if (move.secondaries) {
 			value.abilityModify(1.3, "Sheer Force");

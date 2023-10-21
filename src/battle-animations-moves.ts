@@ -16365,6 +16365,55 @@ export const BattleMoveAnims: AnimTable = {
 			}, 'swing', 'explode');
 		},
 	},
+	frigidbreeze: {
+		anim(scene, [attacker, defender]) {
+			scene.showEffect('iceball', {
+				x: attacker.x,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 0.4,
+				opacity: 0,
+			}, {
+				x: defender.leftof(40),
+				y: defender.y + 15,
+				z: defender.z,
+				scale: 0.8,
+				opacity: 0.7,
+				time: 500,
+			}, 'decel', 'fade');
+			if (defender.isMissedPokemon) return;
+			scene.showEffect('iceball', {
+				x: defender.leftof(40),
+				y: defender.y + 15,
+				z: defender.z,
+				scale: 0.8,
+				opacity: 0.7,
+				time: 500,
+			}, {
+				x: defender.leftof(-40),
+				y: defender.y,
+				z: defender.z,
+				scale: 0.7,
+				opacity: 1,
+				time: 700,
+			}, 'swing', 'fade');
+			scene.showEffect('wisp', {
+				x: defender.leftof(-40),
+				y: defender.y,
+				z: defender.z,
+				scale: 0.1,
+				opacity: 0,
+				time: 700,
+			}, {
+				x: defender.leftof(10),
+				y: defender.y - 15,
+				z: defender.z,
+				scale: 0.7,
+				opacity: 1,
+				time: 900,
+			}, 'swing', 'explode');
+		},
+	},
 	confuseray: {
 		anim(scene, [attacker, defender]) {
 			scene.showEffect('electroball', {
@@ -19704,6 +19753,37 @@ export const BattleMoveAnims: AnimTable = {
 				opacity: 1,
 			}, 'ballistic');
 			scene.showEffect('poisoncaltrop', {
+				x: attacker.x,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 0.1,
+				opacity: 0.5,
+				time: 200,
+			}, {
+				x: -15,
+				y: defender.y - 35,
+				z: defender.z,
+				scale: 0.3,
+				opacity: 1,
+			}, 'ballistic');
+		},
+	},
+	secretseeds: {
+		anim(scene, [attacker, defender]) {
+			scene.showEffect('leaf1', {
+				x: attacker.x,
+				y: attacker.y,
+				z: attacker.z,
+				scale: 0.1,
+				opacity: 0.5,
+			}, {
+				x: +5,
+				y: defender.y - 40,
+				z: defender.z,
+				scale: 0.3,
+				opacity: 1,
+			}, 'ballistic');
+			scene.showEffect('leaf2', {
 				x: attacker.x,
 				y: attacker.y,
 				z: attacker.z,
