@@ -1923,15 +1923,16 @@ class BattleTooltips {
 		if (move.flags['slicing']) {
 			value.abilityModify(1.5, "Sharpness");
 		}
+		if (move.flags['hammer']) {
+			value.abilityModify(1.5, "Power Hammer");
+		}
 		if (move.flags['slicing']) {
 			value.abilityModify(1.5, "Star Sword");
 		}
 		if (move.flags['bullet']) {
 			value.abilityModify(1.3, "Star Bat");
 		}
-		if (move.flags['hammer']) {
-			value.abilityModify(1.5, "Power Hammer");
-		}
+		
 		for (let i = 1; i <= 5 && i <= pokemon.side.faintCounter; i++) {
 			if (pokemon.volatiles[`fallen${i}`]) {
 				value.abilityModify(1 + 0.1 * i, "Supreme Overlord");
